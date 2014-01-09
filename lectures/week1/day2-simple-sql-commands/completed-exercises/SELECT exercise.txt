@@ -101,18 +101,18 @@ Advanced
 
 18) Select all the fields and add a column age where you calculate the age of the staff based on the current date CURRENT_TIMESTAMP. 
 
-	SELECT *, YEAR(CURRENT_TIMESTAMP) - YEAR(dob) - (MONTH(CURRENT_TIMESTAMP) < MONTH(dob)) as age 
+	SELECT *, DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), dob)), "%Y")+0 AS age
 	FROM staff;
 
 19) Use count and group by on the above select statement to calculate the number of people for each age.
 
-	SELECT count(age), YEAR(CURRENT_TIMESTAMP) - YEAR(dob) - (MONTH(CURRENT_TIMESTAMP) < MONTH(dob)) as age 
+	SELECT count(*), DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), dob)), "%Y")+0 AS age 
 	FROM staff 
 	GROUP BY age;
 
 20) Calculate the average salary for each age group.
 
-	SELECT avg(salary), YEAR(CURRENT_TIMESTAMP) - YEAR(dob) - (MONTH(CURRENT_TIMESTAMP) < MONTH(dob)) as age 
+	SELECT avg(salary), DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), dob)), "%Y")+0 AS age 
 	FROM staff 
 	GROUP BY age;
 
