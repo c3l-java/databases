@@ -12,7 +12,7 @@
 
 7) Count the number of staff that earn greater than 20000 but less than 25000.
 
-8) Select the firstname and surname of all staff but using the 'as' keyword give translate the column titles to Swedish fornamn, efternamn.   
+8) Select the firstname and surname of all staff but using the 'as' keyword translate the column titles to Swedish ie. fornamn, efternamn.   
 
 9) Select a table that has three columns and one row containing the minimum, maximum and average salary of all the staff.
 
@@ -22,7 +22,7 @@
 
 12) Now order the selection first by firstname and then by surname.
 
-13) Use the limit keyword to return the first 10 members of staff
+13) Use the limit keyword to return the first 10 members of staff.
 
 14) Use the limit keyword to return only the rows 10 to 20 from the table.
 
@@ -31,7 +31,7 @@
 Advanced
 16) Select only the year from the dob column for all floggit staff.
 
-17) Using the concat keyword combine the columns street_address, town and postcode to one column. Seperate the columns with a comma.
+17) Using the concat function, combine the columns street_address, town and postcode to one column. Separate the combined columns with a comma.
 
 18) Select all the fields and add a column age where you calculate the age of the staff based on the current date CURRENT_TIMESTAMP. 
 
@@ -41,4 +41,4 @@ Advanced
 
 21) Use a nested select statement to return the firstname and surname of the staff that has the highest salary.
 
-22) Use a nested select statement to the firstname, surname and how much their salary differs from the average salary. Sort the table by this new column.
+22) Use a nested select statement to return the firstname, surname and how much their salary differs from the average salary. Sort the table by this new column.
