@@ -1,4 +1,4 @@
-DROP TABLE `staff`;
+DROP TABLE IF EXISTS `staff`;
 
 CREATE TABLE `staff` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
