@@ -1,0 +1,15 @@
+
+#Inner join
+SELECT firstname, surname, dept_name FROM staff INNER JOIN departments ON departments.id = staff.department_id ORDER BY dept_name, surname;
+# The same as
+SELECT firstname, surname, dept_name FROM staff, departments WHERE departments.id = staff.department_id ORDER BY dept_name, surname;
+#Left outer join
+SELECT firstname, surname, dept_name FROM staff LEFT OUTER JOIN departments ON departments.id = staff.department_id ORDER BY dept_name, surname;
+#Right outer join
+SELECT firstname, surname, dept_name FROM staff RIGHT OUTER JOIN departments ON departments.id = staff.department_id ORDER BY dept_name, surname;
+#Full outer join
+SELECT firstname, surname, dept_name FROM staff LEFT OUTER JOIN departments ON departments.id = staff.department_id 
+UNION
+SELECT firstname, surname, dept_name FROM staff RIGHT OUTER JOIN departments ON departments.id = staff.department_id ORDER BY dept_name, surname;
+#Cross join example
+SELECT firstname, surname, dept_name FROM staff CROSS JOIN departments;

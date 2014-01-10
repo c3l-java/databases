@@ -1,0 +1,9 @@
+1) Use a join to display a table of bosses. The table should show the name of the department the firstname, surname, email and telephone number to it's boss.
+2) Use a join to showing all the staff and the name of their department.
+3) Use a join to show firstname, surnamme and department name. The table should include all staff even if they don't have a department.
+4) Select firstname, surnamme and department name of all the staff and all the departments (including those that are not related).
+5) Select the name of the department and the number of staff in each department (make sure you even have departments that have no staff in the list).
+6) Select the name of the department whose boss earns the most money.
+7) Select the name of the department with staff that have the highest average salary.
+8) Change the name of the department Accounts to Money counters.
+9) Use an inner join to create a table showing the id from the departments table and the id from the staff table.
