@@ -34,7 +34,8 @@ GROUP BY dept_name;
 
 SELECT dept_name, firstname, surname, salary 
 FROM departments INNER JOIN staff ON staff.id = departments.boss_id
-WHERE salary = (SELECT max(salary) FROM departments INNER JOIN staff ON staff.id = departments.boss_id);
+WHERE salary = 	(SELECT max(salary) 
+				FROM departments INNER JOIN staff ON staff.id = departments.boss_id);
 
 7) Select the name of the department with staff that have the highest average salary.
 
