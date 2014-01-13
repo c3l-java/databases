@@ -1,0 +1,5 @@
+Exercise 2
+
+Your boss want's an easy way to search for data about individual employees.
+
+Create a command line tool that allows her to input an employees name (firstname and surname). The program then should return all the information about that person, you can ignore club information for now. The output should be nicely formatted and your code should be beautiful ;-)

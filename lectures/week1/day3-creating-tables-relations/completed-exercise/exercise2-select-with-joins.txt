@@ -67,7 +67,7 @@ UPDATE departments SET city = "Hallstahammar" WHERE id not in (1,2);
 SELECT count(staff.id) as employee_count, departments.city 
 FROM staff INNER JOIN departments ON departments.id = staff.department_id WHERE departments.city = 'Stockholm';
 
-13) Your boss needs to send an email to all the people who work in the Hallstahammar office because the electricty will be off next Friday. Retrieve a list of email addresses to all that work in Hallstahammar.
+13) Your boss needs to send an email to all the people who work in the Hallstahammar office because the electricity will be off next Friday. Retrieve a list of email addresses to all that work in Hallstahammar.
 
 SELECT email FROM staff INNER JOIN departments ON departments.id = staff.department_id WHERE departments.city = 'Hallstahammar';
 
