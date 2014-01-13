@@ -38,11 +38,12 @@ WHERE salary = (SELECT max(salary) FROM departments INNER JOIN staff ON staff.id
 
 7) Select the name of the department with staff that have the highest average salary.
 
-SELECT dept_name, avg(salary) as avg_salary 
-FROM departments INNER JOIN staff ON staff.id = departments.boss_id 
-GROUP BY dept_name 
-ORDER BY avg_salary DESC 
-LIMIT 1;
+SELECT dept_name 
+FROM 	(SELECT dept_name, avg(salary) as avg_salary 
+		FROM departments INNER JOIN staff ON departments.id = staff.department_id 
+		GROUP BY dept_name
+		ORDER BY avg_salary DESC
+		LIMIT 1) as tmp;
 
 8) Change the name of the department Accounts to Money counters.
 
@@ -90,27 +91,28 @@ ORDER BY employee_count DESC, club_name;
 
 3) Select all the staff that are members of 3 or more clubs as your worried it might effect their work.
 
-SELECT * FROM
-(SELECT staff.id, firstname, surname, count(clubs.id) as club_count
-FROM staff 
-LEFT JOIN staff_clubs ON staff.id = staff_clubs.staff_id 
-LEFT JOIN clubs ON clubs.id = staff_clubs.club_id
-GROUP BY staff.id 
-ORDER BY club_count DESC, surname) as tmp
+SELECT * 
+FROM
+	(SELECT staff.id, firstname, surname, count(clubs.id) as club_count
+	FROM staff 
+	INNER JOIN staff_clubs ON staff.id = staff_clubs.staff_id 
+	INNER JOIN clubs ON clubs.id = staff_clubs.club_id
+	GROUP BY staff.id 
+	ORDER BY club_count DESC, surname) as tmp
 WHERE club_count >= 3;
 
 4) Can you also include their department name.
 
-SELECT * FROM
-(SELECT staff.id,  firstname, surname, dept_name, count(clubs.id) as club_count
-FROM staff 
-LEFT JOIN staff_clubs ON staff.id = staff_clubs.staff_id 
-LEFT JOIN clubs ON clubs.id = staff_clubs.club_id
-LEFT JOIN departments ON departments.id = staff.department_id
-GROUP BY staff.id 
-ORDER BY club_count DESC, surname) as tmp
+SELECT * 
+FROM
+	(SELECT staff.id,  firstname, surname, dept_name, count(clubs.id) as club_count
+	FROM staff 
+	LEFT JOIN staff_clubs ON staff.id = staff_clubs.staff_id 
+	LEFT JOIN clubs ON clubs.id = staff_clubs.club_id
+	LEFT JOIN departments ON departments.id = staff.department_id
+	GROUP BY staff.id 
+	ORDER BY club_count DESC, surname) as tmp
 WHERE club_count >= 3;
-
 
 5) Create a list of all the clubs that people in the accounts department are members of.
 

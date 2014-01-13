@@ -1,3 +1,5 @@
+Execute the exercise.sql to create all the relevant tables and data to run this exercise.
+
 One to many and one to one working with departments.
 
 1) Use a join to display a table of bosses. The table should show the name of the department the firstname, surname, email and telephone number to it's boss.
@@ -15,6 +17,7 @@ One to many and one to one working with departments.
 13) Your boss needs to send an email to all the people who work in the Hallstahammar office because the electricty will be off next Friday. Retrieve a list of email addresses to all that work in Hallstahammar.
 
 Many to many working with clubs table
+
 1) Show a list of staff and the clubs that they are members of.
 2) Floggit is going to sponsor clubs based on the number of staff that are members of them, create a list of clubs with number of members. Include in the list all clubs even those that have no staff members.
 3) Select all the staff that are members of 3 or more clubs as your worried it might effect their work.
