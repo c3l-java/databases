@@ -1,12 +1,12 @@
 package floggit;
 
-import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-public class TestConnection {
+public class TransactionTest {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost/floggit";
 	static final String USER = "root";
@@ -16,20 +16,26 @@ public class TestConnection {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		int departmentId = 0;
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			conn.setAutoCommit(false); // The start of a transaction
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT id, firstname, surname FROM staff");
-			while (rs.next()){
-				int id = rs.getInt("id");
-				String firstname = rs.getString("firstname");
-				String surname = rs.getString("surname");
-				
-				System.out.print("ID: " + id);
-				System.out.print(", firstname: " + firstname);
-				System.out.println(", surname: " + surname);
-			}	
+			
+			try{
+				stmt.executeUpdate("INSERT INTO departments (dept_name) VALUES('Caretakers');", Statement.RETURN_GENERATED_KEYS);
+				rs = stmt.getGeneratedKeys();
+				if(rs.next()){
+					departmentId =  rs.getInt(1);
+				}
+				System.out.print(departmentId);
+				//conn.commit();
+			} catch(SQLException e){
+				conn.rollback();
+				e.printStackTrace();
+			}
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
