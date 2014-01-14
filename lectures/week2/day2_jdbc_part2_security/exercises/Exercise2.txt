@@ -1,0 +1,8 @@
+Working with a transaction
+CEO has descided we need a new department called Caretakers.
+1) Create a new department called caretakers.
+2) With help of getGeneratedKeys method get the value of the id for the Caretakers department
+3) Create a new member of staff that is a member of caretakers (department_id should be set to the id collected in step 2)
+4) With help of getGeneratedKeys method get the value of the id for the member of staff you created in step 3.
+5) Update caretakers department and set the boss_id to be the same as the new member of staff, the id you collected at step 4.
+
