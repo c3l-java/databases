@@ -1,0 +1,13 @@
+1) Create a new user in mysql that can only select from the Staff and Departments tables.
+
+2) Verify that this works from your java code by changing the code you wrote yesterday to use the new user. Your code should still work.
+
+3) Now test selecting all rows from the clubs table this should fail.
+
+4) Change your code so it uses PreparedStatements instead of string concatination.
+
+5) If you are working purely with strings at them moment, create a employee class to hold the data about employees. Overide the toString method so you can pretty print an employee in the terminal.
+
+6) Change your loop so it builds a collection of employees instead of just printing out to the terminal. Once you have built your collection itterate through it and print out the information about employees to the terminal by using the toString method.
+
+

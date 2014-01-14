@@ -1,5 +1,5 @@
 CREATE USER 'floggit_reader'@'localhost' IDENTIFIED BY 'tomtom';
 GRANT SELECT ON floggit.staff TO 'floggit_reader'@'localhost';
 GRANT UPDATE ON floggit.staff TO 'floggit_reader'@'localhost';
-GRANT SELECT ON floggit.staff TO 'floggit_reader'@'localhost';
-GRANT SELECT ON floggit.staff TO 'floggit_reader'@'localhost';
+GRANT INSERT ON floggit.staff TO 'floggit_reader'@'localhost';
+GRANT DELETE ON floggit.staff TO 'floggit_reader'@'localhost';
