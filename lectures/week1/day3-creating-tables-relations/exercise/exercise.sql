@@ -1,18 +1,30 @@
+CREATE SCHEMA IF NOT EXISTS `floggit` DEFAULT CHARACTER SET utf8 ;
+USE `floggit` ;
+
 DROP TABLE IF EXISTS `staff`;
 
-CREATE TABLE `staff` (
-  `id` mediumint(8) unsigned NOT NULL auto_increment,
-  `firstname` varchar(255) default NULL,
-  `surname` varchar(255) default NULL,
-  `dob` varchar(255),
-  `street_address` varchar(255) default NULL,
-  `town` varchar(255),
-  `postcode` varchar(10) default NULL,
-  `mobile` varchar(100) default NULL,
-  `email` varchar(255) default NULL,
-  `salary` mediumint default NULL,
-  PRIMARY KEY (`id`)
-) AUTO_INCREMENT=1;
+CREATE TABLE IF NOT EXISTS `floggit`.`staff` (
+  `id` MEDIUMINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `firstname` VARCHAR(255) NULL DEFAULT NULL,
+  `surname` VARCHAR(255) NULL DEFAULT NULL,
+  `dob` VARCHAR(255) NULL DEFAULT NULL,
+  `street_address` VARCHAR(255) NULL DEFAULT NULL,
+  `town` VARCHAR(255) NULL DEFAULT NULL,
+  `postcode` VARCHAR(10) NULL DEFAULT NULL,
+  `mobile` VARCHAR(100) NULL DEFAULT NULL,
+  `email` VARCHAR(255) NULL DEFAULT NULL,
+  `salary` MEDIUMINT(9) NULL DEFAULT NULL,
+  `department_id` MEDIUMINT(8) UNSIGNED,
+  PRIMARY KEY (`id`),
+  INDEX `fk_staff_departments1_idx` (`department_id` ASC),
+  CONSTRAINT `fk_staff_departments1`
+    FOREIGN KEY (`department_id`)
+    REFERENCES `floggit`.`departments` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8;
 
 INSERT INTO `staff` (`firstname`,`surname`,`dob`,`street_address`,`town`,`postcode`,`mobile`,`email`,`salary`) VALUES ("Sybill","Le","1973-05-11","P.O. Box 173, 4391 Felis Ave","Redcliffe","QM3 9VI","0800 160 9672","elit.erat.vitae@nonnisi.org",35805);
 INSERT INTO `staff` (`firstname`,`surname`,`dob`,`street_address`,`town`,`postcode`,`mobile`,`email`,`salary`) VALUES ("Kalia","Horn","1982-08-27","708-9236 Ac St.","Piancastagnaio","UR6 4PF","(013856) 08737","Duis@lobortisquam.co.uk",39782);
@@ -117,14 +129,22 @@ INSERT INTO `staff` (`firstname`,`surname`,`dob`,`street_address`,`town`,`postco
 
 DROP TABLE IF EXISTS departments;
 # Create the departments table
-CREATE TABLE departments
-(
-	id mediumint(8) unsigned NOT NULL auto_increment,
-	dept_name varchar(55) NOT NULL, 
-	boss_id mediumint(8) unsigned,
-	UNIQUE(dept_name),
-	PRIMARY KEY (id)
-) AUTO_INCREMENT=1;
+CREATE TABLE IF NOT EXISTS `floggit`.`departments` (
+  `id` MEDIUMINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `dept_name` VARCHAR(55) NOT NULL,
+  `city` VARCHAR(64) NULL DEFAULT NULL,
+  `boss_id` MEDIUMINT(8) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `dept_name` (`dept_name` ASC),
+  INDEX `fk_departments_staff1_idx` (`boss_id` ASC),
+  CONSTRAINT `fk_departments_staff1`
+    FOREIGN KEY (`boss_id`)
+    REFERENCES `floggit`.`staff` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 18
+DEFAULT CHARACTER SET = utf8;
 # Add the departments
 INSERT INTO departments (dept_name, boss_id) VALUES ('Accounts', 78); 
 INSERT INTO departments (dept_name, boss_id) VALUES ('Marketing', 35);
@@ -132,8 +152,7 @@ INSERT INTO departments (dept_name, boss_id) VALUES ('Business development', 21)
 INSERT INTO departments (dept_name, boss_id) VALUES ('Research', 47);
 INSERT INTO departments (dept_name, boss_id) VALUES ('Software development', 56);
 INSERT INTO departments (dept_name) VALUES ('New department');
-# Add department_id column to staff
-ALTER TABLE staff ADD column department_id mediumint(8) unsigned;
+
 # Put bosses in departments
 UPDATE staff SET department_id = 1 WHERE id = 78;
 UPDATE staff SET department_id = 2 WHERE id = 35;
@@ -223,12 +242,25 @@ INSERT INTO `clubs` (`club_name`,`telephone`,`street_address`,`town`,`postcode`)
 
 DROP TABLE IF EXISTS `staff_clubs`;
 
-CREATE TABLE `staff_clubs` (
-  `id` mediumint(8) unsigned NOT NULL auto_increment,
-  `club_id` mediumint(8) unsigned NOT NULL,
-  `staff_id` mediumint(8) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) AUTO_INCREMENT=1;
+CREATE TABLE IF NOT EXISTS `floggit`.`staff_clubs` (
+  `staff_id` MEDIUMINT(8) UNSIGNED NOT NULL,
+  `club_id` MEDIUMINT(8) UNSIGNED NOT NULL,
+  PRIMARY KEY (`staff_id`, `club_id`),
+  INDEX `fk_staff_has_clubs_clubs1_idx` (`club_id` ASC),
+  INDEX `fk_staff_has_clubs_staff1_idx` (`staff_id` ASC),
+  CONSTRAINT `fk_staff_has_clubs_staff1`
+    FOREIGN KEY (`staff_id`)
+    REFERENCES `floggit`.`staff` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_staff_has_clubs_clubs1`
+    FOREIGN KEY (`club_id`)
+    REFERENCES `floggit`.`clubs` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
 
 INSERT INTO staff_clubs (club_id,staff_id) VALUES (58,100);
 INSERT INTO staff_clubs (club_id,staff_id) VALUES (1,6);
@@ -277,7 +309,6 @@ INSERT INTO staff_clubs (club_id,staff_id) VALUES (51,35);
 INSERT INTO staff_clubs (club_id,staff_id) VALUES (12,43);
 INSERT INTO staff_clubs (club_id,staff_id) VALUES (5,58);
 INSERT INTO staff_clubs (club_id,staff_id) VALUES (53,27);
-INSERT INTO staff_clubs (club_id,staff_id) VALUES (5,58);
 INSERT INTO staff_clubs (club_id,staff_id) VALUES (51,37);
 INSERT INTO staff_clubs (club_id,staff_id) VALUES (20,7);
 INSERT INTO staff_clubs (club_id,staff_id) VALUES (57,66);
